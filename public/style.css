@@ -75,7 +75,7 @@ body {
     color: var(--ff-color);
     
     margin: 10px;
-    list-style-type: none;
+    /* list-style-type: none; */
 }
 
 /* TEXT AREA >>>>>>>>>>>>>>>>>>>>>>>>>>>>*/

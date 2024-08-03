@@ -92,20 +92,17 @@ function keypressChecker(keyPressed, wordDivs) {
 
 //
 
-function isMode(key, radioButtons) {
+function typeMode(key, radioButtons) {
     let mode;
     if (key === 'Enter'){
         for (const radioButton of radioButtons) {
             if (radioButton.checked) {
                 mode = radioButton.value;
-                console.log(mode);
                 break;
             }
         }
         return mode;
-    } else {
-        return 'no selected mode'
-    }
+    } 
 }
 
 
@@ -123,38 +120,40 @@ menuContainer.addEventListener('click', (e) => {
     } else {
         // console.log('isFocus is already true');
     }
-    
 })
+
 
 
 document.addEventListener('keydown', (e) => {
     const key = e.key;
-    const containers = [keyboardContainer, fakeContainer, typeContainer];
-    let mode = null;
-
+    const containers = [typeContainer, keyboardContainer, fakeContainer];
+    let mode = typeMode(key, radioButtons);
+    
     if (key == 'Escape') {
         containers.forEach(container => container.style.display = 'none')
         menuContainer.style.display = 'flex';
+        radioButtons[0].focus();
+        mode = 'menu';
     }
-
-    if (isFocus) {
-        mode = isMode(key, radioButtons);        
+    
+    if (mode) {
         
-        if (mode == 'keyboard') {
-            menuContainer.style.display = 'none';
-            keyboardContainer.style.display = 'flex';            
-        } else if (mode == 'fake') {
+        if (mode == 'fake') {
             menuContainer.style.display = 'none';
             fakeContainer.style.display = 'flex';
         } else if (mode == 'type') {
             menuContainer.style.display = 'none';
             typeContainer.style.display = 'flex';  
+        } else if (mode == 'keyboard') {
+            menuContainer.style.display = 'none';
+            keyboardContainer.style.display = 'flex';            
+        } else {
+            console.log('this is a test mode')
         }
         
     }
-
-
-    console.log(mode);
+    
+    console.log(mode)
     console.log(isFocus);
     
     // if (key !== 'Shift' && key !== 'Control' && key !== 'Alt' 
