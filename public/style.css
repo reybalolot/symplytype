@@ -49,7 +49,6 @@ body {
 /* MENU CONTAINER >>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 .menu-container {
-    display: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -81,9 +80,12 @@ body {
 
 /* TEXT AREA >>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
-.text-area {
+.type-container {
     display: none;
-    /* display: flex; */
+}
+
+.text-area {
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-content: center;
@@ -120,7 +122,6 @@ body {
 /* KEYBOARD >>>>>>>>>>>>>>>>>>>>>>>>>>>> */
 .keyboard-container {
     display: none;
-    /* display: flex; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -167,7 +168,13 @@ body {
     --key-primary: var(--key-pressed);
 }
 
-
+/* FAKE CONTAINER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+.fake-container {
+    display: none;
+    width: 100dvw;
+    height: 100dvh;
+    background-color: red;
+}
 /* SETTINGS CONTAINER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 /* .settings-container {

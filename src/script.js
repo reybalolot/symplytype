@@ -1,9 +1,15 @@
 let sentence = "embrace the journey, for it is the path that shapes us. In the dance of life, find joy in every step. Amidst the cosmic symphony, where stars sing their ancient ballads and galaxies waltz in celestial choreography, we find ourselves—a fleeting note in the grand composition." 
 
-let textArea = document.querySelector('#textArea');
-let container = document.querySelector('.main-container');
-let wordDivs = textArea.getElementsByClassName('word');
+const radioButtons = document.querySelectorAll('input[name="mode"]');
 
+const container = document.querySelector('.main-container');
+const menuContainer = document.querySelector('.menu-container');
+const keyboardContainer = document.querySelector('.keyboard-container');
+const typeContainer = document.querySelector('.type-container');
+const fakeContainer = document.querySelector('.fake-container');
+
+const textArea = document.querySelector('#textArea');
+const wordDivs = textArea.getElementsByClassName('word');
 
 // splits sentence into char array
 function sentenceSplitter(sentence) {
@@ -96,23 +102,60 @@ function isMode(key, radioButtons) {
                 break;
             }
         }
+        return mode;
+    } else {
+        return 'no selected mode'
     }
-    return mode;
 }
 
 
 // setup
 charDisplay(sentenceSplitter(sentence));
 
-// let isFocus = false; 
-// container.addEventListener('click', () => { isFocus = true });
+let isFocus = false; 
+menuContainer.addEventListener('click', (e) => {
+    
+    if (!isFocus){
+        isFocus = true;
+        radioButtons[0].focus()
+        radioButtons[0].checked = true;
+        // console.log('isFocus is now true');
+    } else {
+        // console.log('isFocus is already true');
+    }
+    
+})
 
-const radioButtons = document.querySelectorAll('input[name="mode"]');
 
 document.addEventListener('keydown', (e) => {
-    const key = e.key
-    
+    const key = e.key;
+    const containers = [keyboardContainer, fakeContainer, typeContainer];
+    let mode = null;
 
+    if (key == 'Escape') {
+        containers.forEach(container => container.style.display = 'none')
+        menuContainer.style.display = 'flex';
+    }
+
+    if (isFocus) {
+        mode = isMode(key, radioButtons);        
+        
+        if (mode == 'keyboard') {
+            menuContainer.style.display = 'none';
+            keyboardContainer.style.display = 'flex';            
+        } else if (mode == 'fake') {
+            menuContainer.style.display = 'none';
+            fakeContainer.style.display = 'flex';
+        } else if (mode == 'type') {
+            menuContainer.style.display = 'none';
+            typeContainer.style.display = 'flex';  
+        }
+        
+    }
+
+
+    console.log(mode);
+    console.log(isFocus);
     
     // if (key !== 'Shift' && key !== 'Control' && key !== 'Alt' 
     //     && key !== 'PageUp' && key !== 'PageDown' 
