@@ -1,10 +1,11 @@
-let sentence = "embrace the journey, for it is the path that shapes us. In the dance of life, find joy in every step. Amidst the cosmic symphony, where stars sing their ancient ballads and galaxies waltz in celestial choreography, we find ourselves—a fleeting note in the grand composition." 
+let sentence = "embrace the journey, for it is the path that shapes us. In the dance of life, find joy in every step. Amidst the cosmic symphony, where stars sing their ancient ballads and galaxies waltz in celestial choreography, we find ourselves—a fleeting note in the grand composition."
 
 const radioButtons = document.querySelectorAll('input[name="mode"]');
 
 const container = document.querySelector('.main-container');
 const menuContainer = document.querySelector('.menu-container');
 const keyboardContainer = document.querySelector('.keyboard-container');
+const keys = document.querySelectorAll('.key')
 const typeContainer = document.querySelector('.type-container');
 const fakeContainer = document.querySelector('.fake-container');
 
@@ -24,10 +25,10 @@ function charDisplay(charArray){
     for(let i = 0; i < charArray.length; i++) {
         let word = document.createElement('div');
         word.classList += 'word'
-        
+
         for(let j = 0; j < charArray[i].length; j++) {
             let char = document.createElement('span');
-            
+
             if (charArray[i][j] == ' '){
                 char.classList += 'empty';
             } else {
@@ -35,10 +36,11 @@ function charDisplay(charArray){
                 char.innerHTML = charArray[i][j];
             }
             word.appendChild(char)
-        }        
+        }
         textArea.appendChild(word);
     }
 }
+
 
 function keypressChecker(keyPressed, wordDivs) {
     //closures
@@ -52,12 +54,12 @@ function keypressChecker(keyPressed, wordDivs) {
     let wordDiv = wordDivs[keypressChecker.wordCounter];
     let charSpan = wordDiv.children[keypressChecker.charCounter];
     let letter = (charSpan.innerHTML == '')? 'space':charSpan.innerHTML;
-    
-    let RegEx = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;    
-    
+
+    let RegEx = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+
     //check if keypressed is equal to letter
     if (RegEx.test(keyPressed) || keyPressed == ' ' || keyPressed == 'Backspace'){
-        
+
         if (keypressChecker.charCounter != 0 && keyPressed == 'Backspace'){
             if (keypressChecker.charCounter <= keypressChecker.wordLength) {
                 wordDiv.childNodes[keypressChecker.charCounter - 1].classList.remove('incorrect')
@@ -85,7 +87,7 @@ function keypressChecker(keyPressed, wordDivs) {
                 extraLetter.classList.add('extra');
                 extraLetter.classList.add('cursor');
                 keypressChecker.charCounter++;
-            }   
+            }
         }
     }
 }
@@ -102,16 +104,16 @@ function typeMode(key, radioButtons) {
             }
         }
         return mode;
-    } 
+    }
 }
 
 
 // setup
 charDisplay(sentenceSplitter(sentence));
 
-let isFocus = false; 
+let isFocus = false;
 menuContainer.addEventListener('click', (e) => {
-    
+
     if (!isFocus){
         isFocus = true;
         radioButtons[0].focus()
@@ -123,47 +125,63 @@ menuContainer.addEventListener('click', (e) => {
 })
 
 
-
 document.addEventListener('keydown', (e) => {
     const key = e.key;
     const containers = [typeContainer, keyboardContainer, fakeContainer];
     let mode = typeMode(key, radioButtons);
-    
+
     if (key == 'Escape') {
         containers.forEach(container => container.style.display = 'none')
         menuContainer.style.display = 'flex';
         radioButtons[0].focus();
         mode = 'menu';
     }
-    
+
     if (mode) {
-        
+
         if (mode == 'fake') {
             menuContainer.style.display = 'none';
             fakeContainer.style.display = 'flex';
         } else if (mode == 'type') {
             menuContainer.style.display = 'none';
-            typeContainer.style.display = 'flex';  
+            typeContainer.style.display = 'flex';
         } else if (mode == 'keyboard') {
             menuContainer.style.display = 'none';
-            keyboardContainer.style.display = 'flex';            
+            keyboardContainer.style.display = 'flex';
         } else {
             console.log('this is a test mode')
         }
-        
+
     }
-    
-    console.log(mode)
-    console.log(isFocus);
-    
-    // if (key !== 'Shift' && key !== 'Control' && key !== 'Alt' 
-    //     && key !== 'PageUp' && key !== 'PageDown' 
-    //     && key !== 'ArrowUp' && key !== 'ArrowDown' 
-    //     && key !== 'ArrowRight' && key !== 'ArrowLeft' 
-    //     && key !== 'Home' && key !== 'Escape' && key !== 'Enter') 
+
+    // console.log(mode)
+    // console.log(isFocus);
+     checkKey()
+
+
+    // if (key !== 'Shift' && key !== 'Control' && key !== 'Alt'
+    //     && key !== 'PageUp' && key !== 'PageDown'
+    //     && key !== 'ArrowUp' && key !== 'ArrowDown'
+    //     && key !== 'ArrowRight' && key !== 'ArrowLeft'
+    //     && key !== 'Home' && key !== 'Escape' && key !== 'Enter')
     // {
     //     console.log(key);
     //     keypressChecker(key, wordDivs)
     // }
-    
+
 })
+
+// Keyboard Mode Functions
+function checkKey() {
+    let RegEx = /[a-z]/;
+    let characters = 'abcdefghijklmnopqrstuvwxyz,./;\'[]'
+
+
+    let randKey = keys[Math.floor(Math.random() * keys.length)];
+    // let randKey = keys.length;
+    console.log(randKey);
+
+
+
+    // keys.forEach(el => console.log(el))
+}
