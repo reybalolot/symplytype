@@ -53,7 +53,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     width: 100dvw;
     height: 100dvh;
     background-color: var(--bg-secondary);
@@ -73,7 +73,7 @@ body {
 .list-wrapper li {
     font-family: var(--ff-font);
     color: var(--ff-color);
-    
+
     margin: 10px;
     /* list-style-type: none; */
 }
@@ -96,7 +96,7 @@ body {
 
     font-size: var(--ff-size);
     font-family: var(--ff-font);
-    color: var(--ff-color);    
+    color: var(--ff-color);
 }
 
 .empty {
@@ -165,7 +165,6 @@ body {
     transform:  scale(1.07);
     transition: 150ms;
 
-    --key-primary: var(--key-pressed);
 }
 
 /* FAKE CONTAINER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/

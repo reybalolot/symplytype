@@ -95,15 +95,18 @@ function keypressChecker(keyPressed, wordDivs) {
 //
 
 function typeMode(key, radioButtons) {
-    let mode;
+    if (!typeMode.mode){
+        typeMode.mode;
+    }
+
     if (key === 'Enter'){
         for (const radioButton of radioButtons) {
             if (radioButton.checked) {
-                mode = radioButton.value;
+                typeMode.mode = radioButton.value;
                 break;
             }
         }
-        return mode;
+        return typeMode.mode;
     }
 }
 
@@ -128,24 +131,24 @@ menuContainer.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
     const key = e.key;
     const containers = [typeContainer, keyboardContainer, fakeContainer];
-    let mode = typeMode(key, radioButtons);
+    typeMode(key, radioButtons);
 
     if (key == 'Escape') {
         containers.forEach(container => container.style.display = 'none')
         menuContainer.style.display = 'flex';
         radioButtons[0].focus();
-        mode = 'menu';
+        typeMode.mode = 'menu';
     }
 
-    if (mode) {
+    if (typeMode.mode) {
 
-        if (mode == 'fake') {
+        if (typeMode.mode == 'fake') {
             menuContainer.style.display = 'none';
             fakeContainer.style.display = 'flex';
-        } else if (mode == 'type') {
+        } else if (typeMode.mode == 'type') {
             menuContainer.style.display = 'none';
             typeContainer.style.display = 'flex';
-        } else if (mode == 'keyboard') {
+        } else if (typeMode.mode == 'keyboard') {
             menuContainer.style.display = 'none';
             keyboardContainer.style.display = 'flex';
         } else {
@@ -154,34 +157,45 @@ document.addEventListener('keydown', (e) => {
 
     }
 
-    // console.log(mode)
+    // console.log(typeMode.mode)
     // console.log(isFocus);
-     checkKey()
+    if (typeMode.mode == 'keyboard'){
+        let activeKey = getKey();
+        // console.log(activeKey.innerHTML)
+        checkKey(key, activeKey)
+    }
 
-
-    // if (key !== 'Shift' && key !== 'Control' && key !== 'Alt'
-    //     && key !== 'PageUp' && key !== 'PageDown'
-    //     && key !== 'ArrowUp' && key !== 'ArrowDown'
-    //     && key !== 'ArrowRight' && key !== 'ArrowLeft'
-    //     && key !== 'Home' && key !== 'Escape' && key !== 'Enter')
-    // {
-    //     console.log(key);
-    //     keypressChecker(key, wordDivs)
-    // }
+    if (typeMode.mode == 'type'){
+        if (key !== 'Shift' && key !== 'Control' && key !== 'Alt'
+            && key !== 'PageUp' && key !== 'PageDown'
+            && key !== 'ArrowUp' && key !== 'ArrowDown'
+            && key !== 'ArrowRight' && key !== 'ArrowLeft'
+            && key !== 'Home' && key !== 'Escape' && key !== 'Enter')
+        {
+            keypressChecker(key, wordDivs)
+        }
+    }
 
 })
 
 // Keyboard Mode Functions
-function checkKey() {
-    let RegEx = /[a-z]/;
+function getKey() {
     let characters = 'abcdefghijklmnopqrstuvwxyz,./;\'[]'
-
-
     let randKey = keys[Math.floor(Math.random() * keys.length)];
-    // let randKey = keys.length;
-    console.log(randKey);
+    randKey.classList.add('key-pressed')
 
-
-
+    return randKey;
     // keys.forEach(el => console.log(el))
+}
+
+function checkKey(key, activeKey) {
+    if (key == activeKey.innerHTML) {
+        activeKey.classList.remove('key-pressed');
+        console.log("correct");
+    } else {
+        console.log("wrong")
+    }
+    // keys.forEach(key => {
+    //     key.
+    // })
 }
