@@ -1,4 +1,5 @@
-let sentence = "embrace the journey, for it is the path that shapes us. In the dance of life, find joy in every step. Amidst the cosmic symphony, where stars sing their ancient ballads and galaxies waltz in celestial choreography, we find ourselves—a fleeting note in the grand composition."
+let sentence = "embrace the journey, for it is the path that shapes us."
+// In the dance of life, find joy in every step. Amidst the cosmic symphony, where stars sing their ancient ballads and galaxies waltz in celestial choreography, we find ourselves—a fleeting note in the grand composition."
 
 const radioButtons = document.querySelectorAll('input[name="mode"]');
 
@@ -12,6 +13,7 @@ const fakeContainer = document.querySelector('.fake-container');
 const textArea = document.querySelector('#textArea');
 const wordDivs = textArea.getElementsByClassName('word');
 
+
 // splits sentence into char array
 function sentenceSplitter(sentence) {
     let charArray = [];
@@ -20,8 +22,9 @@ function sentenceSplitter(sentence) {
     wordsArray.forEach(word => {charArray.push(word.split(''))});
     return charArray;
 }
+
 // creates char-word into span
-function charDisplay(charArray){
+function charDisplay(charArray) {
     for(let i = 0; i < charArray.length; i++) {
         let word = document.createElement('div');
         word.classList += 'word'
@@ -41,7 +44,7 @@ function charDisplay(charArray){
     }
 }
 
-
+// checks pressed key
 function keypressChecker(keyPressed, wordDivs) {
     //closures
     if (!keypressChecker.wordCounter && !keypressChecker.charCounter && !keypressChecker.prevCharCounter) {
@@ -58,7 +61,7 @@ function keypressChecker(keyPressed, wordDivs) {
     let RegEx = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
 
     //check if keypressed is equal to letter
-    if (RegEx.test(keyPressed) || keyPressed == ' ' || keyPressed == 'Backspace'){
+    if (RegEx.test(keyPressed) || keyPressed == ' ' || keyPressed == 'Backspace') {
 
         if (keypressChecker.charCounter != 0 && keyPressed == 'Backspace'){
             if (keypressChecker.charCounter <= keypressChecker.wordLength) {
@@ -69,7 +72,7 @@ function keypressChecker(keyPressed, wordDivs) {
                 wordDiv.childNodes[keypressChecker.charCounter - 1].remove();
                 keypressChecker.charCounter--;
             }
-        } else if (keyPressed == ' ') {
+        } else if (keyPressed == ' ' && keypressChecker.wordCounter < wordDivs.length - 1) {
             keypressChecker.charCounter = 0;
             keypressChecker.wordCounter++;
             keypressChecker.wordLength = wordDivs[keypressChecker.wordCounter].children.length - 1;
@@ -77,7 +80,10 @@ function keypressChecker(keyPressed, wordDivs) {
             charSpan.classList.add('correct');
             keypressChecker.charCounter++;
         } else {
-            if (keypressChecker.charCounter < keypressChecker.wordLength) {
+            if (keyPressed == 'Backspace' || keyPressed == ' ') {
+                console.log("DO NOTHING")
+                // return (keypressChecker.wordCounter == wordDivs.length - 1) ? true : false;
+            } else if (keypressChecker.charCounter < keypressChecker.wordLength) {
                 charSpan.classList.add('incorrect');
                 keypressChecker.charCounter++;
             } else {
@@ -90,10 +96,31 @@ function keypressChecker(keyPressed, wordDivs) {
             }
         }
     }
+    if (keypressChecker.wordCounter == wordDivs.length - 1 && keypressChecker.charCounter == keypressChecker.wordLength){
+        return true;
+    }
+}
+
+
+// Keyboard Mode Functions
+function getKey() {
+    let characters = 'abcdefghijklmnopqrstuvwxyz,./;\'[]'
+    let randKey = keys[Math.floor(Math.random() * keys.length)];
+    randKey.classList.add('key-pressed')
+
+    return randKey;
+}
+
+function checkKey(key, activeKey) {
+    if (key == activeKey.innerHTML) {
+        activeKey.classList.remove('key-pressed');
+        console.log("correct");
+    } else {
+        console.log("wrong")
+    }
 }
 
 //
-
 function typeMode(key, radioButtons) {
     if (!typeMode.mode){
         typeMode.mode;
@@ -112,6 +139,7 @@ function typeMode(key, radioButtons) {
 
 
 // setup
+
 charDisplay(sentenceSplitter(sentence));
 
 let isFocus = false;
@@ -121,9 +149,6 @@ menuContainer.addEventListener('click', (e) => {
         isFocus = true;
         radioButtons[0].focus()
         radioButtons[0].checked = true;
-        // console.log('isFocus is now true');
-    } else {
-        // console.log('isFocus is already true');
     }
 })
 
@@ -157,45 +182,40 @@ document.addEventListener('keydown', (e) => {
 
     }
 
-    // console.log(typeMode.mode)
-    // console.log(isFocus);
     if (typeMode.mode == 'keyboard'){
-        let activeKey = getKey();
         // console.log(activeKey.innerHTML)
         checkKey(key, activeKey)
     }
 
-    if (typeMode.mode == 'type'){
+    if (typeMode.mode == 'type') {
         if (key !== 'Shift' && key !== 'Control' && key !== 'Alt'
             && key !== 'PageUp' && key !== 'PageDown'
             && key !== 'ArrowUp' && key !== 'ArrowDown'
             && key !== 'ArrowRight' && key !== 'ArrowLeft'
             && key !== 'Home' && key !== 'Escape' && key !== 'Enter')
         {
-            keypressChecker(key, wordDivs)
+
+            let isFin = keypressChecker(key, wordDivs);
+            let wpm = wordsPerMinute(wordDivs.length, isFin);
+            console.log(wpm)
         }
     }
 
 })
 
-// Keyboard Mode Functions
-function getKey() {
-    let characters = 'abcdefghijklmnopqrstuvwxyz,./;\'[]'
-    let randKey = keys[Math.floor(Math.random() * keys.length)];
-    randKey.classList.add('key-pressed')
-
-    return randKey;
-    // keys.forEach(el => console.log(el))
-}
-
-function checkKey(key, activeKey) {
-    if (key == activeKey.innerHTML) {
-        activeKey.classList.remove('key-pressed');
-        console.log("correct");
-    } else {
-        console.log("wrong")
+function wordsPerMinute(numOfWords, isFinished) {
+    let endTime = null;
+    if (!wordsPerMinute.startTime) {
+        wordsPerMinute.startTime = new Date().getTime();
     }
-    // keys.forEach(key => {
-    //     key.
-    // })
+
+    if (isFinished) {
+        endTime = new Date().getTime();
+
+        const minTime = (endTime - wordsPerMinute.startTime) / 60000;
+        const wpm = numOfWords / minTime;
+        return wpm;
+    }
 }
+
+// typeMode()

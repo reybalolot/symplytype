@@ -205,6 +205,9 @@ body {
     border-radius: 3px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 14px 28px, rgba(0, 0, 0, 0.12) 0px 10px 10px;
 } */
+ul {
+    list-style-type: none;
+}
 
 input[type=radio] {
     width: 0px;
