@@ -12,6 +12,9 @@
     --ff-size: 20px;
     --ff-font: 'Fira Code', Courier, monospace;
     --ff-color: #646464;
+    /* --ff-color-select: #0DFF92; */
+    --ff-color-select: #ebdbb2;
+    --ff-color-correct: #ebdbb2;
 }
 
 * {
@@ -61,12 +64,13 @@ body {
 
 .list-wrapper {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     width: 100%;
     height: auto;
-    padding: 3%;
+    padding: 1%;
     background-color: var(--bg-secondary);
 }
 
@@ -75,8 +79,63 @@ body {
     color: var(--ff-color);
 
     margin: 10px;
-    /* list-style-type: none; */
+    list-style-type: none;
 }
+
+.radiobuttons {
+    margin: 3%;
+}
+
+.menu-label {
+    font-size: 14px;
+    font-family: var(--ff-font);
+    font-weight: bold;
+    color: var(--key-primary);
+
+    margin-top: 1%;
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.menu-keys .key-nav {
+    color: var(--ff-color-select);
+    border-color: var(--ff-color-select);
+    transform: scale(.9);
+}
+
+input[type=radio] {
+    width: 0px;
+    opacity: 0;
+}
+
+input[type=radio]:checked ~ label {
+    color: var(--ff-color-select);
+}
+
+input[type=radio] ~.o {
+    display: inline;
+    color:  var(--ff-color)
+}
+
+input[type=radio] ~.x {
+    display: none;
+    color:  var(--ff-color)
+}
+
+input[type=radio]:checked ~ .x  {
+    display: inline;
+    color: var(--ff-color-select);
+}
+
+input[type=radio]:checked ~ .o  {
+    display: none;
+}
+
+.no-click {pointer-events: none;}
 
 /* TEXT AREA >>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
@@ -104,7 +163,7 @@ body {
 }
 
 .correct {
-    color: #ebdbb2;
+    color: var(--ff-color-correct);
 }
 
 .incorrect {
@@ -173,68 +232,4 @@ body {
     width: 100dvw;
     height: 100dvh;
     background-color: red;
-}
-/* SETTINGS CONTAINER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-
-/* .settings-container {
-    display: none;
-    align-items: center;
-    gap: 10px;
-    padding: 0 15px;
-
-    width: auto;
-    height: 5dvh;
-    margin: 0 20%;
-
-    border-radius: 3px;
-    background-color: var(--bg-primary);
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-}
-
-.mode {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ebdbb2;
-
-    height: 3dvh;
-    width: 3dvh;
-}
-
-.mode i {
-    border-radius: 3px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 14px 28px, rgba(0, 0, 0, 0.12) 0px 10px 10px;
-} */
-ul {
-    list-style-type: none;
-}
-
-input[type=radio] {
-    width: 0px;
-    opacity: 0;
-}
-
-input[type=radio]:checked ~ label {
-  /* color: #0DFF92; */
-    color: var(--key-bg-pressed)
-}
-
-input[type=radio] ~.o {
-    display: inline;
-    color:  var(--ff-color)
-}
-
-input[type=radio] ~.x {
-    display: none;
-    color:  var(--ff-color)
-}
-
-input[type=radio]:checked ~ .x  {
-    display: inline;
-    color: var(--key-bg-pressed);
-}
-
-input[type=radio]:checked ~ .o  {
-    display: none;
-    /* color: var(--key-bg-pressed); */
 }

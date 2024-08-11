@@ -14,6 +14,136 @@ const textArea = document.querySelector('#textArea');
 const wordDivs = textArea.getElementsByClassName('word');
 
 
+//
+function selectMode(key, radioButtons) {
+    if (!selectMode.mode){
+        selectMode.mode;
+    }
+
+    if (key === 'Enter'){
+        for (const radioButton of radioButtons) {
+            if (radioButton.checked) {
+                selectMode.mode = radioButton.value;
+                break;
+            }
+        }
+        return selectMode.mode;
+    }
+}
+
+
+// setup
+
+charDisplay(sentenceSplitter(sentence));
+
+// let isFocus = false;
+// window.addEventListener('focus', (e) => {
+
+//     if (!isFocus){
+//         isFocus = true;
+//         radioButtons[0].focus()
+//         radioButtons[0].checked = true;
+//     }
+// })
+
+
+// function main(event) {
+//     const key = event.key;
+//     const containers = [typeContainer, keyboardContainer, fakeContainer];
+//     selectMode(key, radioButtons);
+
+//     if (key == 'Escape') {
+//         containers.forEach(container => container.style.display = 'none')
+//         menuContainer.style.display = 'flex';
+//         radioButtons[0].focus();
+//         selectMode.mode = 'menu';
+//     }
+
+
+// }
+
+function keyboardTest(event){
+    const key = event.key;
+    // console.log(activeKey.innerHTML)
+    // checkKey(key, activeKey)
+    console.log(key)
+}
+
+function typingTest(event){
+    const key = event.key;
+    if (key !== 'Shift' && key !== 'Control' && key !== 'Alt'
+        && key !== 'PageUp' && key !== 'PageDown'
+        && key !== 'ArrowUp' && key !== 'ArrowDown'
+        && key !== 'ArrowRight' && key !== 'ArrowLeft'
+        && key !== 'Home' && key !== 'Escape' && key !== 'Enter')
+    {
+        let isDone = keypressChecker(key, wordDivs);
+        let wpm = wordsPerMinute(wordDivs.length, isDone);
+        (wpm != undefined)? console.log(wpm) : undefined
+    }
+}
+
+////////////////////////////////////
+
+function setup(){
+    selectMode.mode = 'menu';
+    radioButtons[0].focus();
+
+    // listen to menu
+    let radioSelect = 0;
+    let pressCounter = 0;
+    const keyJ = document.querySelector('#nav-j');
+    const keyK = document.querySelector('#nav-k');
+    menuContainer.addEventListener('keypress', (e) => {
+        if (e.key === 'j') {
+            radioSelect = (radioSelect + 1) % radioButtons.length;
+            keyJ.classList.add('key-nav');
+        } else if (e.key === 'k') {
+            radioSelect = (radioSelect - 1 + radioButtons.length) % radioButtons.length;
+            keyK.classList.add('key-nav');
+        }
+        // yep that's the problem
+        menuContainer.addEventListener('keyup', () => {
+            keyJ.classList.remove('key-nav');
+            keyK.classList.remove('key-nav');
+            pressCounter+=1;
+        });
+        if (pressCounter > 10) {
+            let label = document.querySelector('.menu-label');
+            label.classList.add('fade-out')
+            setTimeout(() => {
+                label.innerHTML = "IT IS COMMON TO PRESS ENTER AFTERWARDS RIGHT?"
+                label.classList.remove('fade-out')
+            }, 2000);
+        }
+        console.log(pressCounter);//todo
+
+        radioButtons[radioSelect].checked = true;
+
+        // if mode selected change display and add event listener
+        selectMode(e.key, radioButtons);
+        if (selectMode.mode != 'menu') {
+            if (selectMode.mode == 'fake') {
+                menuContainer.style.display = 'none';
+                fakeContainer.style.display = 'flex';
+            }
+            else if (selectMode.mode == 'type') {
+                menuContainer.style.display = 'none';
+                typeContainer.style.display = 'flex';
+                document.addEventListener('keydown', typingTest);
+            }
+            else if (selectMode.mode == 'keyboard') {
+                menuContainer.style.display = 'none';
+                keyboardContainer.style.display = 'flex';
+                document.addEventListener('keypress', keyboardTest);
+            }
+        }
+    });
+}
+
+window.addEventListener('load', setup);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // splits sentence into char array
 function sentenceSplitter(sentence) {
     let charArray = [];
@@ -38,7 +168,7 @@ function charDisplay(charArray) {
                 char.classList += 'char'
                 char.innerHTML = charArray[i][j];
             }
-            word.appendChild(char)
+            word.appendChild(char);
         }
         textArea.appendChild(word);
     }
@@ -81,7 +211,7 @@ function keypressChecker(keyPressed, wordDivs) {
             keypressChecker.charCounter++;
         } else {
             if (keyPressed == 'Backspace' || keyPressed == ' ') {
-                console.log("DO NOTHING")
+                return
                 // return (keypressChecker.wordCounter == wordDivs.length - 1) ? true : false;
             } else if (keypressChecker.charCounter < keypressChecker.wordLength) {
                 charSpan.classList.add('incorrect');
@@ -101,115 +231,13 @@ function keypressChecker(keyPressed, wordDivs) {
     }
 }
 
-
-// Keyboard Mode Functions
-function getKey() {
-    let characters = 'abcdefghijklmnopqrstuvwxyz,./;\'[]'
-    let randKey = keys[Math.floor(Math.random() * keys.length)];
-    randKey.classList.add('key-pressed')
-
-    return randKey;
-}
-
-function checkKey(key, activeKey) {
-    if (key == activeKey.innerHTML) {
-        activeKey.classList.remove('key-pressed');
-        console.log("correct");
-    } else {
-        console.log("wrong")
-    }
-}
-
-//
-function typeMode(key, radioButtons) {
-    if (!typeMode.mode){
-        typeMode.mode;
-    }
-
-    if (key === 'Enter'){
-        for (const radioButton of radioButtons) {
-            if (radioButton.checked) {
-                typeMode.mode = radioButton.value;
-                break;
-            }
-        }
-        return typeMode.mode;
-    }
-}
-
-
-// setup
-
-charDisplay(sentenceSplitter(sentence));
-
-let isFocus = false;
-menuContainer.addEventListener('click', (e) => {
-
-    if (!isFocus){
-        isFocus = true;
-        radioButtons[0].focus()
-        radioButtons[0].checked = true;
-    }
-})
-
-
-document.addEventListener('keydown', (e) => {
-    const key = e.key;
-    const containers = [typeContainer, keyboardContainer, fakeContainer];
-    typeMode(key, radioButtons);
-
-    if (key == 'Escape') {
-        containers.forEach(container => container.style.display = 'none')
-        menuContainer.style.display = 'flex';
-        radioButtons[0].focus();
-        typeMode.mode = 'menu';
-    }
-
-    if (typeMode.mode) {
-
-        if (typeMode.mode == 'fake') {
-            menuContainer.style.display = 'none';
-            fakeContainer.style.display = 'flex';
-        } else if (typeMode.mode == 'type') {
-            menuContainer.style.display = 'none';
-            typeContainer.style.display = 'flex';
-        } else if (typeMode.mode == 'keyboard') {
-            menuContainer.style.display = 'none';
-            keyboardContainer.style.display = 'flex';
-        } else {
-            console.log('this is a test mode')
-        }
-
-    }
-
-    if (typeMode.mode == 'keyboard'){
-        // console.log(activeKey.innerHTML)
-        checkKey(key, activeKey)
-    }
-
-    if (typeMode.mode == 'type') {
-        if (key !== 'Shift' && key !== 'Control' && key !== 'Alt'
-            && key !== 'PageUp' && key !== 'PageDown'
-            && key !== 'ArrowUp' && key !== 'ArrowDown'
-            && key !== 'ArrowRight' && key !== 'ArrowLeft'
-            && key !== 'Home' && key !== 'Escape' && key !== 'Enter')
-        {
-
-            let isFin = keypressChecker(key, wordDivs);
-            let wpm = wordsPerMinute(wordDivs.length, isFin);
-            console.log(wpm)
-        }
-    }
-
-})
-
-function wordsPerMinute(numOfWords, isFinished) {
+function wordsPerMinute(numOfWords, isDone) {
     let endTime = null;
     if (!wordsPerMinute.startTime) {
         wordsPerMinute.startTime = new Date().getTime();
     }
 
-    if (isFinished) {
+    if (isDone) {
         endTime = new Date().getTime();
 
         const minTime = (endTime - wordsPerMinute.startTime) / 60000;
@@ -217,5 +245,3 @@ function wordsPerMinute(numOfWords, isFinished) {
         return wpm;
     }
 }
-
-// typeMode()

@@ -9,36 +9,43 @@
 <body>
     <div class="main-container">
         <div class="menu-container">
-            <div class="title">TITLE</div>
             <!-- <div>Press a number</div> -->
             <div class="list-wrapper">
+                <div class="title">TITLE</div>
                 <div class="radiobuttons">
                     <ul>
-                        <li>
-                            <input type="radio" name="mode" id="type" value="type">
+                        <li class="no-click">
+                            <input type="radio" name="mode" id="type" value="type" checked="true">
                             <span class="o">[ ]</span>
                             <span class="x">[x]</span>
                             <label for="type">Typing Test</label>
                         </li>
-                        <li>
+                        <li class="no-click">
                             <input type="radio" name="mode" id="keyboard" value="keyboard">
                             <span class="o">[ ]</span>
                             <span class="x">[x]</span>
                             <label for="keyboard">Keyboard Practice</label>
                         </li>
-                        <li>
+                        <li class="no-click">
                             <input type="radio" name="mode" id="fake" value="fake">
                             <span class="o">[ ]</span>
                             <span class="x">[x]</span>
                             <label for="fake">Fake Typing</label>
                         </li>
-                        <li>
+                        <li class="no-click">
                             <input type="radio" name="mode" id="fake" value="fake">
                             <span class="o">[ ]</span>
                             <span class="x">[x]</span>
                             <label for="fake">Fake Typing</label>
                         </li>
                     </ul>
+                </div>
+                <div class="menu-keys">
+                    <div class="key j" id="nav-j">J</div>
+                    <div class="key k" id="nav-k">K</div>
+                </div>
+                <div class="menu-label">
+                    PRESS KEYS
                 </div>
             </div>
         </div>
@@ -99,18 +106,6 @@
         <div class="fake-container">
 
         </div>
-        <!-- <div class="settings-container">
-            <div class="mode zen">
-                <i class="fa-solid fa-lx fa-i-cursor"></i>
-            </div>
-            <div class="mode book">
-                <i class="fa-solid fa-lx fa-book"></i>
-            </div>
-            <div class="mode keyboard">
-                <i class="fa-solid fa-lx fa-keyboard"></i>
-            </div>
-        </div> -->
-
     </div>
 </div>
 
