@@ -93,7 +93,7 @@ body {
     color: var(--key-primary);
 
     margin-top: 1%;
-    transition: opacity 1s ease-in-out;
+    transition: opacity .5s ease-in-out;
     opacity: 1;
 }
 
@@ -141,6 +141,21 @@ input[type=radio]:checked ~ .o  {
 
 .type-container {
     display: none;
+}
+
+.wpm-area {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+
+    width: 100dvw;
+    height: 90dvh;
+    padding: 0 15%;
+
+    font-size: var(--ff-size);
+    font-family: var(--ff-font);
+    color: var(--ff-color);
 }
 
 .text-area {
@@ -232,4 +247,30 @@ input[type=radio]:checked ~ .o  {
     width: 100dvw;
     height: 100dvh;
     background-color: red;
+}
+
+/*  PAUSE CONTAINER >>>>>>>>>>>>>>>>>>>> */
+
+.pause-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    font-family: var(--ff-font);
+    font-weight: 500;
+    color: var(--ff-color-select);
+
+    width: 100dvw;
+    height: 80dvh;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    background: rgba(34, 34, 34, 0.2);
+    /* background: rgba(10, 10, 10, 0.2); */
+    /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
+    -ms-backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    -moz-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 }
