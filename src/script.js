@@ -121,7 +121,7 @@ function changeMenuLabels(label, counter) {
     if (counter == 10) {
         label.classList.add('fade-out')
         setTimeout(() => {
-            label.innerHTML = "IT IS COMMON TO <span>PRESS ENTER</span> AFTERWARDS <span>RIGHT?</span>"
+            label.innerHTML = "IT IS COMMON TO <span>PRESS ENTER</span> AFTER A SELECTION (•̀⤙•́)"
             label.classList.remove('fade-out')
         }, 1500);
     }
@@ -140,8 +140,11 @@ function outerToggle() {
     return innerToggle;
 }
 
-function pauseMenu() {
+function pauseMenu(key) {
     //TODO
+    if (key == 'j') {
+        console.log("kjabsas")
+    }
 }
 
 ////////////////////////////////////
