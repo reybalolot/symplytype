@@ -1,7 +1,9 @@
 import express from "express";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
-const port = 4000;
+const port = process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -33,6 +35,6 @@ app.post('/mode', (req, res) => {
 });
 
 
-app.listen(port, () => {
+app.listen(port || 3000, () => {
     console.log(`Server running on: ${port}`);
 });
