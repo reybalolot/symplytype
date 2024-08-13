@@ -1,0 +1,53 @@
+
+<%- include('header.ejs') %>
+<div class="main-container">
+    <div class="menu-container">
+        <!-- <div>Press a number</div> -->
+        <div class="list-wrapper">
+            <div class="title">SYMPLYTYPE</div>
+            <div class="radiobuttons">
+                <form action="/mode" method="post" id="radioForms">
+                    <ul>
+                        <li class="no-click">
+                            <input type="radio" name="modes" id="type" value="type">
+                            <span class="o">[ ]</span>
+                            <span class="x">[x]</span>
+                            <label for="type">Typing Test</label>
+                        </li>
+                        <li class="no-click">
+                            <input type="radio" name="modes" id="keyboard" value="keyboard">
+                            <span class="o">[ ]</span>
+                            <span class="x">[x]</span>
+                            <label for="keyboard">Keyboard Practice</label>
+                        </li>
+                        <li class="no-click">
+                            <input type="radio" name="modes" id="fake" value="fake">
+                            <span class="o">[ ]</span>
+                            <span class="x">[x]</span>
+                            <label for="fake">Fake Typing</label>
+                        </li>
+                        <li class="no-click">
+                            <input type="radio" name="modes" id="fake2" value="fake2">
+                            <span class="o">[ ]</span>
+                            <span class="x">[x]</span>
+                            <label for="fake2">Fake Typing</label>
+                        </li>
+                        <button type="submit" style="display: none;">SEND</button>
+                    </ul>
+                </form>
+            </div>
+            <div class="menu-keys">
+                <div class="key j" id="nav-j">J</div>
+                <div class="key k" id="nav-k">K</div>
+            </div>
+            <div class="menu-label">
+                PRESS KEYS
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="/src/menu.js"></script>
+
+<%- include('footer.ejs') %>
