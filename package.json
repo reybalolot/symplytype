@@ -1,0 +1,22 @@
+{
+  "name": "simplytype",
+  "version": "1.0.0",
+  "description": "A simple typing test.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reybalolot/symplytype.git"
+  },
+  "author": "Rey Balolot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reybalolot/symplytype/issues"
+  },
+  "homepage": "https://github.com/reybalolot/symplytype#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
