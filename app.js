@@ -30,8 +30,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/mode', (req, res) => {
-    selectedMode = req.body.modes
+    selectedMode = req.body.modes;
     res.redirect('/');
+});
+
+app.get('/menu', (req, res) => {
+    selectedMode = req.body.modes;
+    res.redirect('/')
 });
 
 

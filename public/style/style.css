@@ -87,12 +87,14 @@ body {
 }
 
 .menu-label {
+    text-align: center;
+
     font-size: 14px;
     font-family: var(--ff-font);
     font-weight: bold;
     color: var(--key-primary);
 
-    margin-top: 1%;
+    margin-top: 5%;
     transition: opacity .5s ease-in-out;
     opacity: 1;
 }
@@ -243,9 +245,15 @@ input[type=radio]:checked ~ .o  {
 
 /* FAKE CONTAINER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 .fake-container {
-    display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100dvw;
     height: 100dvh;
+
+    font-size: var(--ff-size);
+    font-family: var(--ff-font);
+    color: var(--ff-color);
     background-color: var(--bg-secondary);
 }
 
@@ -258,7 +266,7 @@ input[type=radio]:checked ~ .o  {
 
     font-family: var(--ff-font);
     font-weight: 500;
-    color: var(--ff-color-select);
+    color: var(--ff-color);
 
     width: 100dvw;
     height: 80dvh;
