@@ -33,17 +33,21 @@ function pauseMenu(event) {
     pauseRadioButtons[radioSelect].checked = true;
 }
 //=======================================================================================
-charDisplay(sentenceSplitter(sentence));
+// sentenceSplitter(sentence)
+
 
 function typingTest(event){
     const key = event.key;
-    (!keyboardTest.pause)? keyboardTest.pause = false : false;
+    (!typingTest.pause)? typingTest.pause = false : false;
     let isDone = false;
     let wpm = 0;
 
     if (key === 'Escape') {
         typingTest.pause = isPause();
         pauseContainer.style.display = typingTest.pause ? "flex" : "none";
+    }
+    if (typingTest.pause){
+        pauseContainer.addEventListener('keypress', pauseMenu(event))
     } else {
         if (!typingTest.pause && key !== 'Shift' && key !== 'Control' && key !== 'Alt'
             && key !== 'PageUp' && key !== 'PageDown'
@@ -99,11 +103,12 @@ function charDisplay(charArray) {
 // checks pressed key
 function keypressChecker(keyPressed, wordDivs) {
     //closures
-    if (!keypressChecker.wordCounter && !keypressChecker.charCounter && !keypressChecker.prevCharCounter) {
+    if (!keypressChecker.wordCounter && !keypressChecker.charCounter && !keypressChecker.prevCharCounter && !keypressChecker.isDone) {
         keypressChecker.wordCounter = 0;
         keypressChecker.charCounter = 0;
         keypressChecker.prevCharCounter = -1;
         keypressChecker.wordLength = wordDivs[keypressChecker.wordCounter].children.length - 1;
+        keypressChecker.isDone = false;
     }
 
     let wordDiv = wordDivs[keypressChecker.wordCounter];
@@ -149,7 +154,8 @@ function keypressChecker(keyPressed, wordDivs) {
         }
     }
     if (keypressChecker.wordCounter == wordDivs.length - 1 && keypressChecker.charCounter == keypressChecker.wordLength){
-        return true;
+        keypressChecker.isDone = true;
+        return keypressChecker.isDone;
     }
     console.log(keyPressed)
 }
@@ -168,3 +174,5 @@ function wordsPerMinute(numOfWords, isDone) {
         return wpm;
     }
 }
+
+charDisplay(sentenceSplitter(sentence));

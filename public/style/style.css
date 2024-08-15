@@ -142,7 +142,7 @@ input[type=radio]:checked ~ .o  {
 /* TEXT AREA >>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 .type-container {
-    display: none;
+    display: flex;
 }
 
 .wpm-area {

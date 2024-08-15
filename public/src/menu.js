@@ -70,7 +70,6 @@ window.addEventListener('load', () => {
             const radioForm = document.getElementById('radioForms');
             const formData = new FormData(radioForm);
             modeSelected = formData.get('modes');
-            console.log('Select mode is: ' + modeSelected)
 
             // if (modeSelected) {
             //     fetch('http://localhost:4000/mode', {
