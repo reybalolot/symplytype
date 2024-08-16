@@ -10,6 +10,7 @@
     --key-bg-pressed2: #c8c8c8;
 
     --ff-size: 20px;
+    --ff-size-secondary: 14px;
     --ff-font: 'Fira Code', Courier, monospace;
     --ff-color: #646464;
     /* --ff-color-select: #0DFF92; */
@@ -75,6 +76,7 @@ body {
 }
 
 .list-wrapper li {
+    font-size: var(--ff-size);
     font-family: var(--ff-font);
     color: var(--ff-color);
 
@@ -89,7 +91,7 @@ body {
 .menu-label {
     text-align: center;
 
-    font-size: 14px;
+    font-size: var(--ff-size-secondary);
     font-family: var(--ff-font);
     font-weight: bold;
     color: var(--key-primary);
@@ -281,8 +283,10 @@ input[type=radio]:checked ~ .o  {
     -webkit-backdrop-filter: blur(5px);
     -moz-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
+    filter: blur(5px);
 }
 
 .pause-container ul {
+    font-size: var(--ff-size);
     list-style-type: none;
 }
