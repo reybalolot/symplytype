@@ -107,11 +107,22 @@ window.addEventListener('load', () => {
     if (!localStorage.getItem('visited')) {
         loadingScreen.style.display = 'flex';
 
+        const classNames = ['.l', '.o', '.a', '.d', '.i', '.n', '.g'];
+        let i = 1;
+        classNames.forEach((className) => {
+            setTimeout(() => {
+                const key = document.querySelector(className);
+                key.classList.add('chosen');
+                // key.classList.add('fade');
+            }, (1000 * i) / 4);
+            i++;
+        });
+
         setTimeout(() => {
             loadingScreen.style.display = 'none';
             radioButtons[0].focus();
             radioButtons[0].checked = true;
-        }, 1500);
+        }, 2000);
 
         localStorage.setItem('visited', 'true');
     } else {
