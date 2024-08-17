@@ -35,7 +35,7 @@ function keyboardTest(event){
     if (key === 'Escape') {
         keyboardTest.pause = isPause();
         pauseContainer.style.display = keyboardTest.pause ? "flex" : "none";
-        keyboardContainer.classList.toggle('blur', typingTest.pause);
+        keyboardContainer.classList.toggle('blur', keyboardTest.pause);
     }
 
     if (keyboardTest.pause){

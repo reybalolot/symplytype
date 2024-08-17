@@ -64,11 +64,12 @@ function typingTest(event){
                 textArea.style.display = 'none';
                 wpmArea.style.display = 'flex';
                 wpmText.innerHTML = `${Math.floor(wpm)} Words Per Minute`;
-                (key == 'Space')? console.log("SPACE"): undefined
+                console.log('kasuhkja')
             }
+            // (isDone)? console.log("key is :" + key ): console.log("retry can be here")
+            // console.log('aks;cma;')
         }
     }
-
 }
 document.addEventListener('keydown', typingTest)
 

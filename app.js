@@ -15,7 +15,7 @@ var selectedMode;
 app.get('/', (req, res) => {
     switch (selectedMode) {
         case 'type':
-            res.render('typing');
+            res.render('typing', {mode: 'type'});
             break;
         case 'keyboard':
             res.render('keyboard');
@@ -34,8 +34,8 @@ app.post('/mode', (req, res) => {
     res.redirect('/');
 });
 
-app.get('/menu', (req, res) => {
-    selectedMode = req.body.modes;
+app.post('/menu', (req, res) => {
+    selectedMode = req.body.pauseModes;
     res.redirect('/')
 });
 
