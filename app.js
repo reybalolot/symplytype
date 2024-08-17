@@ -22,7 +22,7 @@ const sentencesJSON = [
         "author" : "default"
     },
     {
-        "sentence" : "Embrace the journey, for it is the path that shapes us. In the dance of life, find joy in eavery step. Amidst the cosmic symphony, where stars sing their ancient ballads and galaxies waltz in celestial choreography, we find ourselves—a fleeting note in the grand composition.",
+        "sentence" : "Embrace the journey, for it is the path that shapes us. In the dance of life, find joy in every step. Amidst the cosmic symphony, where stars sing their ancient ballads and galaxies waltz in celestial choreography, we find ourselves-a fleeting note in the grand composition.",
         "author" : "default"
     },
     {
