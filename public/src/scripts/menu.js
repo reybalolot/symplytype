@@ -5,24 +5,6 @@ const pauseContainer = document.querySelector('.pause-container');
 const loadingScreen = document.querySelector('.loading');
 let modeSelected;
 
-// function selectMode(key, radioButtons) {
-//     if (!selectMode.mode){
-//         selectMode.mode;
-//     }
-
-//     if (key === 'Enter'){
-//         for (const radioButton of radioButtons) {
-//             if (radioButton.checked) {
-//                 selectMode.mode = radioButton.value;
-//                 break;
-//             }
-//         }
-//         return selectMode.mode;
-//     } else {
-//         return 'menu'
-//     }
-// }
-
 function changeMenuLabels(label, counter) {
     if (counter == 10) {
         label.classList.add('fade-out')

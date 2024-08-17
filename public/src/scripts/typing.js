@@ -1,5 +1,3 @@
-let sentence = "embrace the journey, for it is the path that shapes us."
-// In the dance of life, find joy in every step. Amidst the cosmic symphony, where stars sing their ancient ballads and galaxies waltz in celestial choreography, we find ourselves—a fleeting note in the grand composition."
 const typeContainer = document.querySelector('.type-container');
 const textArea = document.querySelector('#textArea');
 const wpmArea = document.querySelector('.wpm-area');
@@ -33,10 +31,8 @@ function pauseMenu(event) {
     }
     pauseRadioButtons[radioSelect].checked = true;
 }
+
 //=======================================================================================
-// sentenceSplitter(sentence)
-
-
 function typingTest(event){
     const key = event.key;
     (!typingTest.pause)? typingTest.pause = false : false;
@@ -55,19 +51,18 @@ function typingTest(event){
             && key !== 'PageUp' && key !== 'PageDown'
             && key !== 'ArrowUp' && key !== 'ArrowDown'
             && key !== 'ArrowRight' && key !== 'ArrowLeft'
-            && key !== 'Home' && key !== 'Enter')
-        {
-            // (wpm != undefined)? console.log(wpm) : undefined
-            isDone = keypressChecker(key, wordDivs);
-            wpm = wordsPerMinute(wordDivs.length, isDone);
-            if (isDone) {
-                textArea.style.display = 'none';
-                wpmArea.style.display = 'flex';
-                wpmText.innerHTML = `${Math.floor(wpm)} Words Per Minute`;
-                console.log('kasuhkja')
-            }
-            // (isDone)? console.log("key is :" + key ): console.log("retry can be here")
-            // console.log('aks;cma;')
+            && key !== 'Home' && key !== 'Enter') {
+                // (wpm != undefined)? console.log(wpm) : undefined
+                isDone = keypressChecker(key, wordDivs);
+                wpm = wordsPerMinute(wordDivs.length, isDone);
+                if (isDone) {
+                    textArea.style.display = 'none';
+                    wpmArea.style.display = 'flex';
+                    wpmText.innerHTML = `${Math.floor(wpm)} Words Per Minute`;
+                    console.log('kasuhkja')
+                }
+                // (isDone)? console.log("key is :" + key ): console.log("retry can be here")
+                // console.log('aks;cma;')
         }
     }
 }
@@ -179,4 +174,11 @@ function wordsPerMinute(numOfWords, isDone) {
     }
 }
 
-charDisplay(sentenceSplitter(sentence));
+fetch('/sentences')
+.then(response => response.json())
+.then(data => {
+    let index = Math.floor(Math.random() * data.length);
+    const sentence = data[index].sentence;
+    charDisplay(sentenceSplitter(sentence));
+})
+.catch(error => console.error('Error fetching data:', error));
