@@ -1,9 +1,9 @@
  <div class="pause-container">
     <div class="pause-text">
-        <form action="/menu" method="post" id="pauseRadioForms">
-            <ul>
+        <form action="/menu"  method="post" id="pauseRadioForms">
+            <ul class="pauseRadioButtons">
                 <!-- LOCALS HERE -->
-                <% if (locals.type) {%>
+                <% if (locals.mode) {%>
                     <li class="no-click">
                         <input type="radio" name="pauseModes" id="<%= locals.mode %>" value="<%= locals.mode %>">
                         <span class="o">[ ]</span>
@@ -20,11 +20,15 @@
                     <button type="submit" style="display: none;" >SEND</button>
                 </ul>
             </form>
+            <!-- <div class="menu-keys">
+                <div class="key j" id="nav-j">J</div>
+                <div class="key k" id="nav-k">K</div>
+            </div> -->
             <div class="menu-label">
                 PRESS ESC
             </div>
         </div>
         <div class="blur">
-            &nbsp;
+            <!-- &nbsp; -->
         </div>
     </div>

@@ -88,6 +88,8 @@ body {
     margin: 3%;
 }
 
+
+
 .menu-label {
     text-align: center;
 
@@ -96,7 +98,7 @@ body {
     font-weight: bold;
     color: var(--key-primary);
 
-    margin-top: 5%;
+    margin-top: 1%;
     transition: opacity .5s ease-in-out;
     opacity: 1;
 }
@@ -286,8 +288,8 @@ input[type=radio]:checked ~ .o  {
     top: 50%;
     transform: translateY(-50%);
 
-    background: rgba(34, 34, 34, 0.2);
-    /* background: rgba(10, 10, 10, 0.2); */
+    /* background: rgba(34, 34, 34, 0.2); */
+    background: rgba(10, 10, 10, 0.2);
     /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
 }
 
@@ -302,4 +304,5 @@ input[type=radio]:checked ~ .o  {
 .pause-container ul {
     font-size: var(--ff-size);
     list-style-type: none;
+    margin-bottom: 10%;
 }
