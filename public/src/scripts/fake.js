@@ -36,6 +36,7 @@ function fakeTyping(event) {
     if (key === 'Escape') {
         fakeTyping.pause = isPause();
         pauseContainer.style.display = fakeTyping.pause ? "flex" : "none";
+        fakeContainer.classList.toggle('blur', typingTest.pause);
     }
 
     if (fakeTyping.pause) {

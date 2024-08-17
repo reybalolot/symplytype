@@ -2,7 +2,8 @@ let sentence = "embrace the journey, for it is the path that shapes us."
 // In the dance of life, find joy in every step. Amidst the cosmic symphony, where stars sing their ancient ballads and galaxies waltz in celestial choreography, we find ourselves—a fleeting note in the grand composition."
 const typeContainer = document.querySelector('.type-container');
 const textArea = document.querySelector('#textArea');
-const wpmArea = document.querySelector('#wpm');
+const wpmArea = document.querySelector('.wpm-area');
+const wpmText = document.querySelector('#wpm');
 const wordDivs = textArea.getElementsByClassName('word');
 
 //=======================================================================================
@@ -45,6 +46,7 @@ function typingTest(event){
     if (key === 'Escape') {
         typingTest.pause = isPause();
         pauseContainer.style.display = typingTest.pause ? "flex" : "none";
+        typeContainer.classList.toggle('blur', typingTest.pause);
     }
     if (typingTest.pause){
         pauseContainer.addEventListener('keypress', pauseMenu(event))
@@ -61,11 +63,12 @@ function typingTest(event){
             if (isDone) {
                 textArea.style.display = 'none';
                 wpmArea.style.display = 'flex';
-                wpmArea.innerHTML = `${Math.floor(wpm)} Words Per Minute`;
+                wpmText.innerHTML = `${Math.floor(wpm)} Words Per Minute`;
                 (key == 'Space')? console.log("SPACE"): undefined
             }
         }
     }
+
 }
 document.addEventListener('keydown', typingTest)
 
@@ -157,7 +160,7 @@ function keypressChecker(keyPressed, wordDivs) {
         keypressChecker.isDone = true;
         return keypressChecker.isDone;
     }
-    console.log(keyPressed)
+    // console.log(keyPressed)
 }
 
 function wordsPerMinute(numOfWords, isDone) {

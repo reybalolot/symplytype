@@ -150,6 +150,7 @@ input[type=radio]:checked ~ .o  {
 .wpm-area {
     display: none;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
     align-content: center;
 
@@ -157,9 +158,18 @@ input[type=radio]:checked ~ .o  {
     height: 90dvh;
     padding: 0 15%;
 
+    text-align: center;
     font-size: var(--ff-size);
     font-family: var(--ff-font);
     color: var(--ff-color);
+}
+
+.wpm-area .retry {
+    /* display: inline; */
+    /* z-index: 1; */
+    color: var(--ff-color-select);
+    margin: 10px 0;
+    font-weight: 100;
 }
 
 .text-area {
@@ -279,6 +289,9 @@ input[type=radio]:checked ~ .o  {
     background: rgba(34, 34, 34, 0.2);
     /* background: rgba(10, 10, 10, 0.2); */
     /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
+}
+
+.blur {
     -ms-backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     -moz-backdrop-filter: blur(5px);

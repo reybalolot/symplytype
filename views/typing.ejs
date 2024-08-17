@@ -1,14 +1,23 @@
 <%- include('header.ejs') %>
-<%- include('pause.ejs') %>
 
 <!-- TYPING TEXT -->
 <div class="type-container">
-    <div class="wpm-area" id="wpm">
-        <!-- wpm here -->
+    <div class="wpm-area">
+        <div class="wpm-text" id="wpm">
+            <!-- wpm here -->
+        </div>
+        <div class="menu-label">
+            <div class="retry">
+                <i class="fa-solid fa-rotate-right fa-xs"></i>
+                retry
+            </div>
+            PRESS ESC TO EXIT
+        </div>
     </div>
     <div class="text-area" id="textArea">
         <!-- here is the text -->
     </div>
 </div>
-<script src="/src/typing.js"></script>
+<%- include('pause.ejs') %>
+<script src="/src/scripts/typing.js"></script>
 <%- include('footer.ejs') %>
