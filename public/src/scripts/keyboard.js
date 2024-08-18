@@ -44,14 +44,18 @@ function keyboardTest(event){
 
     if (keyboardTest.pause){
         pauseContainer.addEventListener('keypress', pauseMenu(event))
-    } else if (!keyboardTest.pause) {
+    } else if (!keyboardTest.pause && key !== 'Shift' && key !== 'Control' && key !== 'Alt'
+        && key !== 'PageUp' && key !== 'PageDown' && key !== 'ArrowUp' && key !== 'ArrowDown'
+        && key !== 'ArrowRight' && key !== 'ArrowLeft' && key !== 'Home' && key !== 'Enter') {
+
         let prevRandKey = randKey;
         let classKey = pressedAnim(key);
-        let classKeyText = document.querySelector(`.${classKey}`).innerHTML.toLowerCase(); // <<<<<<<<TODO (Press Arrows)
+        let classKeyText = document.querySelector(`.${classKey}`).innerHTML.toLowerCase();
         randKey = randomKey();
         counter++;
 
-        if (classKeyText == prevRandKey || classKeyText == "space") {// <<<<<<<<TODO (Press Arrows)
+        let isSpace = (classKeyText == "space" && randKey == "SPACE")? true : false;
+        if (classKeyText == prevRandKey || isSpace) {
             document.querySelector(`.${classKey}`).classList.add('key-correct');
         } else {
             document.querySelector(`.${classKey}`).classList.add('key-incorrect');
