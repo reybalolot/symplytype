@@ -43,8 +43,9 @@ function typingTest(event){
         typingTest.pause = isPause();
         pauseContainer.style.display = typingTest.pause ? "flex" : "none";
         typeContainer.classList.toggle('blur', typingTest.pause);
-    }
-    if (typingTest.pause){
+        pauseRadioButtons[0].focus();
+        pauseRadioButtons[radioSelect].checked = true;
+    } else if (typingTest.pause){
         pauseContainer.addEventListener('keypress', pauseMenu(event))
     } else {
         if (!typingTest.pause && key !== 'Shift' && key !== 'Control' && key !== 'Alt'

@@ -32,6 +32,7 @@ function pauseMenu(event) {
 function fakeTyping(event) {
     const key = event.key;
     (!fakeTyping.pause)? fakeTyping.pause = false : false;
+    (!fakeTyping.counter)? fakeTyping.counter = 0 : 0;
 
     if (key === 'Escape') {
         fakeTyping.pause = isPause();
@@ -43,24 +44,36 @@ function fakeTyping(event) {
         pauseContainer.addEventListener('keypress', pauseMenu(event))
     } else if (!fakeTyping.pause) {
         // CODE HERE
-        let counter = 0;
-        let text = "I am lazy to do this."
-        text = text.split('');
+        let charNode = fakeContainer.children[fakeTyping.counter];
 
-        window.addEventListener('keypress', (e) => {
-            let textSpan = document.createElement('span');
-            textSpan.innerText = text[counter];
-            fakeContainer.appendChild(textSpan);
-            console.log(textSpan);
-        });
-
-        window.addEventListener('keyup', () => counter++);
-        console.log('acasacakbkhj')
+        // console.log(charNode)
+        charNode.classList.add('correct');
+        fakeTyping.counter++;
+        if (fakeTyping.counter == fakeContainer.children.length) {
+            fakeTyping.counter = 0;
+            // let arr = fakeContainer
+            // arr.forEach(span => {
+            //     span.classList.remove('correct')
+            // });
+            // console.log(fakeContainer)
+        }
+        console.log(fakeTyping.counter)
     }
 }
 
-document.addEventListener('keydown', fakeTyping)
 
+function dispayText() {
+    let text = "I am lazy to do this part."
+    text = text.split('');
+    text.forEach(el => {
+        let textSpan = document.createElement('span');
+        textSpan.innerHTML = (el == ' ')? '&nbsp;' : el;
+        fakeContainer.appendChild(textSpan);
+    });
+}
+
+document.addEventListener('keydown', fakeTyping);
+dispayText();
 
 
 // TO DOOOOO

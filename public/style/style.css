@@ -271,10 +271,15 @@ input[type=radio]:checked ~ .o  {
 /* FAKE CONTAINER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 .fake-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    /* width: 100dvw; */
+    /* height: 100dvh; */
+
     width: 100dvw;
-    height: 100dvh;
+    height: 50dvh;
+    padding: auto 15%;
 
     font-size: var(--ff-size);
     font-family: var(--ff-font);
@@ -316,4 +321,8 @@ input[type=radio]:checked ~ .o  {
     font-size: var(--ff-size);
     list-style-type: none;
     margin-bottom: 10%;
+}
+
+.pauseRadioButtons  li{
+    margin: 10px;
 }
