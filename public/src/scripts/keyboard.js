@@ -46,7 +46,7 @@ function keyboardTest(event){
         pauseContainer.addEventListener('keypress', pauseMenu(event))
     } else if (!keyboardTest.pause && key !== 'Shift' && key !== 'Control' && key !== 'Alt'
         && key !== 'PageUp' && key !== 'PageDown' && key !== 'ArrowUp' && key !== 'ArrowDown'
-        && key !== 'ArrowRight' && key !== 'ArrowLeft' && key !== 'Home' && key !== 'Enter') {
+        && key !== 'ArrowRight' && key !== 'ArrowLeft' && key !== 'Home' && key !== 'Enter' && key !== 'Escape') {
 
         let prevRandKey = randKey;
         let classKey = pressedAnim(key);
@@ -64,7 +64,6 @@ function keyboardTest(event){
     let label = document.querySelector('.keyboard-label');
     changeMenuLabels(label, counter);
 }
-document.addEventListener('keydown', keyboardTest)
 
 function randomKey() {
     let randKey;
@@ -160,6 +159,15 @@ function changeMenuLabels(label, counter) {
         }, 500);
     }
 }
+document.addEventListener('keydown', keyboardTest)
+window.addEventListener('blur', (e) => {
+    setTimeout(() => {
+        pauseMenu(e);
+        keyboardTest.pause = isPause();
+        pauseContainer.style.display = 'flex';
+        keyboardContainer.classList.add('blur');
+    }, 30000);
+});
 
 /****************************
 ||||

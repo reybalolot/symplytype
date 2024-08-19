@@ -67,7 +67,6 @@ function typingTest(event){
         }
     }
 }
-document.addEventListener('keydown', typingTest)
 
 //=======================================================================================
 // splits sentence into char array
@@ -157,7 +156,6 @@ function keypressChecker(keyPressed, wordDivs) {
         keypressChecker.isDone = true;
         return keypressChecker.isDone;
     }
-    // console.log(keyPressed)
 }
 
 function wordsPerMinute(numOfWords, isDone) {
@@ -174,6 +172,16 @@ function wordsPerMinute(numOfWords, isDone) {
         return wpm;
     }
 }
+
+document.addEventListener('keydown', typingTest);
+window.addEventListener('blur', (e) => {
+    setTimeout(() => {
+        pauseMenu(e);
+        typingTest.pause = isPause();
+        pauseContainer.style.display = 'flex';
+        typeContainer.classList.add('blur');
+    }, 30000);
+});
 
 fetch('/sentences')
 .then(response => response.json())

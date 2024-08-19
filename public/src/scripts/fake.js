@@ -51,16 +51,14 @@ function fakeTyping(event) {
         fakeTyping.counter++;
         if (fakeTyping.counter == fakeContainer.children.length) {
             fakeTyping.counter = 0;
-            // let arr = fakeContainer
-            // arr.forEach(span => {
-            //     span.classList.remove('correct')
-            // });
+            let arr = Array.from(fakeContainer.children);
+            arr.forEach(span => {
+                span.classList.remove('correct');
+            });
             // console.log(fakeContainer)
         }
-        console.log(fakeTyping.counter)
     }
 }
-
 
 function dispayText() {
     let text = "I am lazy to do this part."
@@ -73,7 +71,12 @@ function dispayText() {
 }
 
 document.addEventListener('keydown', fakeTyping);
+window.addEventListener('blur', (e) => {
+    setTimeout(() => {
+        pauseMenu(e);
+        fakeTyping.pause = isPause();
+        pauseContainer.style.display = 'flex';
+        fakeContainer.classList.add('blur');
+    }, 30000);
+});
 dispayText();
-
-
-// TO DOOOOO

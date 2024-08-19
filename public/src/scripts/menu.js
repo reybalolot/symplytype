@@ -112,3 +112,9 @@ window.addEventListener('load', () => {
         radioButtons[0].checked = true;
     }
 });
+
+window.addEventListener('blur', () => {
+    setTimeout(() => {
+        localStorage.setItem('visited', '')
+    }, 50000);
+})
