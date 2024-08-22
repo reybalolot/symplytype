@@ -3,6 +3,7 @@ const textArea = document.querySelector('#textArea');
 const wpmArea = document.querySelector('.wpm-area');
 const wpmText = document.querySelector('#wpm');
 const wordDivs = textArea.getElementsByClassName('word');
+let sentence;
 
 //=======================================================================================
 const pauseContainer = document.querySelector('.pause-container');
@@ -61,7 +62,7 @@ function typingTest(event){
                     wpmArea.style.display = 'flex';
                     wpmText.innerHTML = `${Math.floor(wpm)} Words Per Minute`;
                     // console.log('kasuhkja')
-                    console.log(keypressChecker.totalChar);
+                    // console.log(keypressChecker.totalChar);
                 }
                 // (isDone)? console.log("key is :" + key ): console.log("retry can be here")
                 // console.log('aks;cma;')
@@ -109,8 +110,8 @@ function keypressChecker(keyPressed, wordDivs) {
         keypressChecker.prevCharCounter = -1;
         keypressChecker.wordLength = wordDivs[keypressChecker.wordCounter].children.length - 1;
         keypressChecker.isDone = false;
-        keypressChecker.totalChar = 0;
         keypressChecker.totalMistakes = 0;
+        keypressChecker.tracker;
     }
 
     let wordDiv = wordDivs[keypressChecker.wordCounter];
@@ -123,12 +124,18 @@ function keypressChecker(keyPressed, wordDivs) {
     if (RegEx.test(keyPressed) || keyPressed == ' ' || keyPressed == 'Backspace') {
 
         if (keypressChecker.charCounter != 0 && keyPressed == 'Backspace'){
-
             // if within the word
             if (keypressChecker.charCounter <= keypressChecker.wordLength) {
                 wordDiv.childNodes[keypressChecker.charCounter - 1].classList.remove('incorrect')
                 wordDiv.childNodes[keypressChecker.charCounter - 1].classList.remove('correct')
                 keypressChecker.charCounter--;
+                if (keypressChecker.tracker != keypressChecker.charCounter){
+                    keypressChecker.totalMistakes--;
+                    keypressChecker.tracker = keypressChecker.charCounter;
+                    console.log("totalMistakes: " + keypressChecker.totalMistakes)
+                    console.log("tracker: " +keypressChecker.tracker)
+                    console.log("charCounter: " +keypressChecker.charCounter)
+                }
             } else {
                 wordDiv.childNodes[keypressChecker.charCounter - 1].remove();
                 keypressChecker.charCounter--;
@@ -149,7 +156,11 @@ function keypressChecker(keyPressed, wordDivs) {
             }else if (keypressChecker.charCounter < keypressChecker.wordLength) {
                 // incorrect letter pressed
                 charSpan.classList.add('incorrect');
+                keypressChecker.tracker = keypressChecker.charCounter;
+                keypressChecker.totalMistakes++;
                 keypressChecker.charCounter++;
+                console.log("initMis: "+keypressChecker.totalMistakes)
+                console.log("initTrack: "+keypressChecker.tracker)
             } else {
                 // creates extra letter on word
                 let extraLetter = document.createElement('span');
@@ -166,6 +177,7 @@ function keypressChecker(keyPressed, wordDivs) {
         keypressChecker.isDone = true;
         // let wpm = wordsPerMinute(wordDivs.length, keypressChecker.isDone);
         // let acc = accuracyCalculator();
+        accuracyCalculator(sentenceSplitter(sentence), keypressChecker.totalMistakes);
         return keypressChecker.isDone;
     }
 }
@@ -185,13 +197,18 @@ function wordsPerMinute(numOfWords, isDone) {
     }
 }
 
-function accuracyCalculator(numOfChar, numOfCorrect, isDone) {
-    let acc = (numOfCorrect / numOfChar) * 100;
-    if (isDone) {
-        return acc;
-    } else {
-        return 0;
-    }
+function accuracyCalculator(charArray, mistakes) {
+
+    let numOfChar = 0;
+    charArray.map(item => { return numOfChar += item.length - 1})
+
+    // let accuracy = (numOfCorrect / numOfChar) * 100;
+    // if (isDone) {
+    //     return accuracy;
+    // } else {
+    //     return 0;
+    // }
+    console.log(mistakes)
 }
 
 
@@ -209,7 +226,7 @@ fetch('/sentences')
 .then(response => response.json())
 .then(data => {
     let index = Math.floor(Math.random() * data.length);
-    const sentence = data[index].sentence;
+    sentence = data[index].sentence;
     charDisplay(sentenceSplitter(sentence));
 })
 .catch(error => console.error('Error fetching data:', error));
